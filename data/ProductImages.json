@@ -1,0 +1,7 @@
+[
+  { "product_id": 1, "image_url": "kaos1.jpg" },
+  { "product_id": 2, "image_url": "serum1.jpg" },
+  { "product_id": 3, "image_url": "headset1.jpg" },
+  { "product_id": 4, "image_url": "dress1.jpg" },
+  { "product_id": 5, "image_url": "sepatu1.jpg" }
+]

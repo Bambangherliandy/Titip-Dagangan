@@ -1,0 +1,52 @@
+[
+  {
+    "buyer_id": 4,
+    "total_price": 200000,
+    "shipping_cost": 20000,
+    "grand_total": 220000,
+    "status": "completed",
+    "payment_status": "paid",
+    "payment_method": "transfer",
+    "shipping_address": "Jakarta"
+  },
+  {
+    "buyer_id": 5,
+    "total_price": 150000,
+    "shipping_cost": 20000,
+    "grand_total": 170000,
+    "status": "completed",
+    "payment_status": "paid",
+    "payment_method": "transfer",
+    "shipping_address": "Bandung"
+  },
+  {
+    "buyer_id": 4,
+    "total_price": 200000,
+    "shipping_cost": 20000,
+    "grand_total": 220000,
+    "status": "shipped",
+    "payment_status": "paid",
+    "payment_method": "transfer",
+    "shipping_address": "Jakarta"
+  },
+  {
+    "buyer_id": 5,
+    "total_price": 250000,
+    "shipping_cost": 20000,
+    "grand_total": 270000,
+    "status": "paid",
+    "payment_status": "paid",
+    "payment_method": "transfer",
+    "shipping_address": "Bandung"
+  },
+  {
+    "buyer_id": 4,
+    "total_price": 300000,
+    "shipping_cost": 20000,
+    "grand_total": 320000,
+    "status": "pending",
+    "payment_status": "unpaid",
+    "payment_method": "transfer",
+    "shipping_address": "Jakarta"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "seller_id": 1,
+    "amount": 100000,
+    "bank_name": "BCA",
+    "account_number": "1234567890",
+    "status": "approved"
+  },
+  {
+    "seller_id": 2,
+    "amount": 50000,
+    "bank_name": "BRI",
+    "account_number": "2345678901",
+    "status": "pending"
+  },
+  {
+    "seller_id": 3,
+    "amount": 75000,
+    "bank_name": "Mandiri",
+    "account_number": "3456789012",
+    "status": "approved"
+  },
+  {
+    "seller_id": 4,
+    "amount": 60000,
+    "bank_name": "BNI",
+    "account_number": "4567890123",
+    "status": "pending"
+  },
+  {
+    "seller_id": 5,
+    "amount": 40000,
+    "bank_name": "BCA",
+    "account_number": "5678901234",
+    "status": "approved"
+  }
+]

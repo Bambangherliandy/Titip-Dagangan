@@ -1,0 +1,62 @@
+[
+  {
+    "seller_id": 1,
+    "category_id": 1,
+    "name": "Kaos Polos",
+    "slug": "kaos-polos",
+    "description": "Kaos nyaman dan adem",
+    "price": 100000,
+    "stock": 50,
+    "weight": 200,
+    "commission_percentage": 10,
+    "status": "approved"
+  },
+  {
+    "seller_id": 2,
+    "category_id": 3,
+    "name": "Serum Wajah",
+    "slug": "serum-wajah",
+    "description": "Serum glowing alami",
+    "price": 150000,
+    "stock": 30,
+    "weight": 100,
+    "commission_percentage": 10,
+    "status": "approved"
+  },
+  {
+    "seller_id": 3,
+    "category_id": 2,
+    "name": "Headset Bluetooth",
+    "slug": "headset-bluetooth",
+    "description": "Suara jernih dan bass kuat",
+    "price": 200000,
+    "stock": 20,
+    "weight": 300,
+    "commission_percentage": 10,
+    "status": "approved"
+  },
+  {
+    "seller_id": 4,
+    "category_id": 1,
+    "name": "Dress Wanita",
+    "slug": "dress-wanita",
+    "description": "Dress elegan untuk pesta",
+    "price": 250000,
+    "stock": 15,
+    "weight": 250,
+    "commission_percentage": 10,
+    "status": "approved"
+  },
+  {
+    "seller_id": 5,
+    "category_id": 4,
+    "name": "Sepatu Futsal",
+    "slug": "sepatu-futsal",
+    "description": "Nyaman dan ringan",
+    "price": 300000,
+    "stock": 25,
+    "weight": 500,
+    "commission_percentage": 10,
+    "status": "approved"
+  }
+]

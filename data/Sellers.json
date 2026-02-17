@@ -1,0 +1,42 @@
+[
+  {
+    "user_id": 2,
+    "store_name": "Toko Bambang",
+    "store_description": "Menjual fashion pria",
+    "store_address": "Jl. Merdeka No.1, Asahan",
+    "balance": 500000,
+    "status": "active"
+  },
+  {
+    "user_id": 3,
+    "store_name": "Toko Rina",
+    "store_description": "Menjual skincare wanita",
+    "store_address": "Jl. Sudirman No.2, Medan",
+    "balance": 300000,
+    "status": "active"
+  },
+  {
+    "user_id": 2,
+    "store_name": "Bambang Elektronik",
+    "store_description": "Aksesoris gadget",
+    "store_address": "Jl. Merdeka No.3, Asahan",
+    "balance": 200000,
+    "status": "active"
+  },
+  {
+    "user_id": 3,
+    "store_name": "Rina Fashion",
+    "store_description": "Fashion wanita trendy",
+    "store_address": "Jl. Sudirman No.4, Medan",
+    "balance": 150000,
+    "status": "active"
+  },
+  {
+    "user_id": 2,
+    "store_name": "Bambang Sport",
+    "store_description": "Perlengkapan olahraga",
+    "store_address": "Jl. Merdeka No.5, Asahan",
+    "balance": 100000,
+    "status": "active"
+  }
+]

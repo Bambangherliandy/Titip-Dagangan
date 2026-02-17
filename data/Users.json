@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Admin Titip",
+    "email": "admin@email.com",
+    "password": "hashed123",
+    "role": "admin",
+    "phone": "0811111111",
+    "address": "Medan"
+  },
+  {
+    "name": "Bambang Seller",
+    "email": "seller1@email.com",
+    "password": "hashed123",
+    "role": "seller",
+    "phone": "0822222222",
+    "address": "Asahan"
+  },
+  {
+    "name": "Rina Seller",
+    "email": "seller2@email.com",
+    "password": "hashed123",
+    "role": "seller",
+    "phone": "0833333333",
+    "address": "Medan"
+  },
+  {
+    "name": "Andi Buyer",
+    "email": "buyer1@email.com",
+    "password": "hashed123",
+    "role": "buyer",
+    "phone": "0844444444",
+    "address": "Jakarta"
+  },
+  {
+    "name": "Siti Buyer",
+    "email": "buyer2@email.com",
+    "password": "hashed123",
+    "role": "buyer",
+    "phone": "0855555555",
+    "address": "Bandung"
+  }
+]
