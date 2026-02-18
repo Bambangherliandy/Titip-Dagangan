@@ -4,7 +4,8 @@ class SellerController {
   static async register(req, res, next) {
     try {
       const { id: user_id } = req.user;
-      const { store_name, store_description, store_address } = req.body;
+      const { store_name, store_description, store_address, city_id } =
+        req.body;
 
       const existingSeller = await Seller.findOne({ where: { user_id } });
       if (existingSeller) {
@@ -25,6 +26,7 @@ class SellerController {
         store_address,
         balance: 0,
         status: "active",
+        city_id,
       });
 
       res.status(201).json({
@@ -62,7 +64,8 @@ class SellerController {
   static async update(req, res, next) {
     try {
       const { id: user_id } = req.user;
-      const { store_name, store_description, store_address } = req.body;
+      const { store_name, store_description, store_address, city_id } =
+        req.body;
 
       const seller = await Seller.findOne({ where: { user_id } });
 
