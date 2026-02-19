@@ -13,8 +13,8 @@ class ProductController {
         stock,
         weight,
         commission_percentage,
+        image,
       } = req.body;
-
       if (!name) throw { name: "BadRequest", message: "Name is required" };
       if (price == null)
         throw { name: "BadRequest", message: "Price is required" };
@@ -22,9 +22,7 @@ class ProductController {
         throw { name: "BadRequest", message: "Stock is required" };
       if (!category_id)
         throw { name: "BadRequest", message: "Category is required" };
-
       const slug = slugify(name, { lower: true, strict: true });
-
       const product = await Product.create({
         seller_id,
         category_id,
@@ -35,13 +33,12 @@ class ProductController {
         stock,
         weight,
         commission_percentage,
+        image,
         status: "active",
       });
-
-      res.status(201).json({
-        message: "Product created successfully",
-        data: product,
-      });
+      res
+        .status(201)
+        .json({ message: "Product created successfully", data: product });
     } catch (error) {
       next(error);
     }
@@ -59,15 +56,13 @@ class ProductController {
         stock,
         weight,
         commission_percentage,
+        image,
       } = req.body;
-
       const product = await Product.findOne({ where: { id, seller_id } });
       if (!product) throw { name: "NotFound", message: "Product not found" };
-
       const slug = name
         ? slugify(name, { lower: true, strict: true })
         : product.slug;
-
       await product.update({
         category_id: category_id ?? product.category_id,
         name: name ?? product.name,
@@ -78,12 +73,11 @@ class ProductController {
         weight: weight ?? product.weight,
         commission_percentage:
           commission_percentage ?? product.commission_percentage,
+        image: image ?? product.image,
       });
-
-      res.status(200).json({
-        message: "Product updated successfully",
-        data: product,
-      });
+      res
+        .status(200)
+        .json({ message: "Product updated successfully", data: product });
     } catch (error) {
       next(error);
     }
@@ -93,15 +87,10 @@ class ProductController {
     try {
       const { id } = req.params;
       const { id: seller_id } = req.seller;
-
       const product = await Product.findOne({ where: { id, seller_id } });
       if (!product) throw { name: "NotFound", message: "Product not found" };
-
       await product.update({ status: "inactive" });
-
-      res.status(200).json({
-        message: "Product deleted successfully",
-      });
+      res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
       next(error);
     }

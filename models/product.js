@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Product.belongsTo(models.Seller, { foreignKey: "seller_id" });
       Product.belongsTo(models.Category, { foreignKey: "category_id" });
-      Product.hasMany(models.ProductImage, { foreignKey: "product_id" });
       Product.hasMany(models.CartItem, { foreignKey: "product_id" });
       Product.hasMany(models.OrderItem, { foreignKey: "product_id" });
     }
@@ -27,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       weight: DataTypes.INTEGER,
       commission_percentage: DataTypes.INTEGER,
       status: DataTypes.STRING,
+      image: DataTypes.STRING,
     },
     {
       sequelize,
