@@ -9,11 +9,13 @@ const productRouter = require("./product");
 const categoryRouter = require("./category");
 const cartRouter = require("./cart");
 const orderRouter = require("./order");
-const reviewRouter = require("./review");
 const withdrawlRouter = require("./withdrawl");
 const shippingRouter = require("./shipping");
+const paymentRouter = require("./payment");
+const chatRoute = require("./chat");
 
 const authentication = require("../middlewares/authentication");
+const { Chat } = require("openai/resources.js");
 
 router.get("/", (req, res) => {
   res.redirect("/pub/products");
@@ -21,8 +23,12 @@ router.get("/", (req, res) => {
 
 //public
 router.use("/pub", publicRouter);
+router.use("/chat", chatRoute);
 router.use("/auth", authRouter);
+router.use("/shipping", shippingRouter);
+router.use("/payment", paymentRouter);
 
+router.get("/favicon.ico", (req, res) => res.status(204).end());
 //private
 router.use(authentication);
 
@@ -32,9 +38,7 @@ router.use("/products", productRouter);
 router.use("/category", categoryRouter);
 router.use("/cart", cartRouter);
 router.use("/orders", orderRouter);
-router.use("/reviews", reviewRouter);
 router.use("/withdraw", withdrawlRouter);
 router.use("/cities", withdrawlRouter);
-router.use("/shipping", shippingRouter);
 
 module.exports = router;

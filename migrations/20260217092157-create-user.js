@@ -32,6 +32,7 @@ module.exports = {
       },
       city_id: {
         type: Sequelize.INTEGER,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,

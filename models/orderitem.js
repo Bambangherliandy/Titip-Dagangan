@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       OrderItem.belongsTo(models.Product, { foreignKey: "product_id" });
       OrderItem.belongsTo(models.Seller, { foreignKey: "seller_id" });
       OrderItem.belongsTo(models.User, { foreignKey: "buyer_id" });
+      OrderItem.belongsTo(models.Order, { foreignKey: "order_id" });
     }
   }
   OrderItem.init(

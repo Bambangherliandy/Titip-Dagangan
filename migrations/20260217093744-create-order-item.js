@@ -11,12 +11,30 @@ module.exports = {
       },
       buyer_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       product_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Products",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       seller_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Sellers",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       quantity: {
         type: Sequelize.INTEGER,

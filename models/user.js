@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Seller, { foreignKey: "user_id" });
       User.hasMany(models.Cart, { foreignKey: "user_id" });
       User.hasMany(models.Order, { foreignKey: "buyer_id" });
-      User.hasMany(models.Review, { foreignKey: "buyer_id" });
     }
   }
   User.init(
@@ -20,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      role: DataTypes.STRING,
+      role: {
+        defaultValue: "buyer",
+        type: DataTypes.STRING,
+      },
       phone: DataTypes.STRING,
       address: DataTypes.STRING,
       city_id: DataTypes.INTEGER,

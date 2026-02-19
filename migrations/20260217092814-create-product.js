@@ -11,6 +11,12 @@ module.exports = {
       },
       seller_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Sellers",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       category_id: {
         type: Sequelize.INTEGER,
@@ -18,39 +24,19 @@ module.exports = {
           model: "Categories",
           key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      name: {
-        type: Sequelize.STRING,
-      },
-      slug: {
-        type: Sequelize.STRING,
-      },
-      description: {
-        type: Sequelize.STRING,
-      },
-      price: {
-        type: Sequelize.INTEGER,
-      },
-      stock: {
-        type: Sequelize.INTEGER,
-      },
-      weight: {
-        type: Sequelize.INTEGER,
-      },
-      commission_percentage: {
-        type: Sequelize.INTEGER,
-      },
-      status: {
-        type: Sequelize.STRING,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
+      name: { type: Sequelize.STRING },
+      slug: { type: Sequelize.STRING },
+      description: { type: Sequelize.STRING },
+      price: { type: Sequelize.INTEGER },
+      stock: { type: Sequelize.INTEGER },
+      weight: { type: Sequelize.INTEGER },
+      commission_percentage: { type: Sequelize.INTEGER },
+      status: { type: Sequelize.STRING },
+      createdAt: { allowNull: false, type: Sequelize.DATE },
+      updatedAt: { allowNull: false, type: Sequelize.DATE },
     });
   },
   async down(queryInterface, Sequelize) {

@@ -4,7 +4,7 @@ const slugify = require("slugify");
 class ProductController {
   static async create(req, res, next) {
     try {
-      const { id: seller_id } = req.seller; // dari middleware sellerAuthorization
+      const { id: seller_id } = req.seller;
       const {
         category_id,
         name,
@@ -16,8 +16,9 @@ class ProductController {
       } = req.body;
 
       if (!name) throw { name: "BadRequest", message: "Name is required" };
-      if (!price) throw { name: "BadRequest", message: "Price is required" };
-      if (!stock && stock !== 0)
+      if (price == null)
+        throw { name: "BadRequest", message: "Price is required" };
+      if (stock == null)
         throw { name: "BadRequest", message: "Stock is required" };
       if (!category_id)
         throw { name: "BadRequest", message: "Category is required" };
@@ -68,15 +69,15 @@ class ProductController {
         : product.slug;
 
       await product.update({
-        category_id: category_id || product.category_id,
-        name: name || product.name,
+        category_id: category_id ?? product.category_id,
+        name: name ?? product.name,
         slug,
-        description: description || product.description,
-        price: price || product.price,
+        description: description ?? product.description,
+        price: price ?? product.price,
         stock: stock ?? product.stock,
-        weight: weight || product.weight,
+        weight: weight ?? product.weight,
         commission_percentage:
-          commission_percentage || product.commission_percentage,
+          commission_percentage ?? product.commission_percentage,
       });
 
       res.status(200).json({

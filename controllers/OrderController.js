@@ -9,10 +9,9 @@ const {
 const axios = require("axios");
 
 const RAJAONGKIR_API_KEY = process.env.RAJAONGKIR_API_KEY;
-const RAJAONGKIR_BASE_URL = "https://rajaongkir.komerce.id/api/v1"; // ← V2 yang benar
+const RAJAONGKIR_BASE_URL = process.env.RAJAONGKIR_BASE_URL;
 
 class OrderController {
-  // Helper: kalkulasi ongkir via RajaOngkir V2
   static async calculateShippingCost(origin, destination, weight, courier) {
     const response = await axios.post(
       `${RAJAONGKIR_BASE_URL}/calculate/domestic-cost`,
@@ -37,7 +36,6 @@ class OrderController {
     return data;
   }
 
-  // GET /orders/cities?province_id=xx → cari ID kota untuk origin/destination
   static async getCities(req, res, next) {
     try {
       const { province_id } = req.query;
@@ -56,7 +54,6 @@ class OrderController {
     }
   }
 
-  // GET /orders/shipping-cost?origin=xx&destination=xx&courier=jne
   static async getShippingCost(req, res, next) {
     try {
       const { origin, destination, courier } = req.query;
@@ -107,7 +104,6 @@ class OrderController {
     }
   }
 
-  // POST /orders/checkout
   static async checkout(req, res, next) {
     try {
       const { id: buyer_id } = req.user;
@@ -115,7 +111,7 @@ class OrderController {
         shipping_address,
         payment_method,
         courier,
-        courier_service, // contoh: "REG", "OKE", "YES"
+        courier_service,
         origin,
         destination,
       } = req.body;
@@ -157,7 +153,6 @@ class OrderController {
       if (cartItems.length === 0)
         throw { name: "BadRequest", message: "Cart is empty" };
 
-      // Validasi stok dan status produk
       for (const item of cartItems) {
         if (item.Product.status !== "active") {
           throw {
@@ -173,13 +168,11 @@ class OrderController {
         }
       }
 
-      // Hitung total weight
       const totalWeight = cartItems.reduce(
         (sum, item) => sum + item.quantity * item.Product.weight,
         0
       );
 
-      // Kalkulasi ongkir dari RajaOngkir V2
       const costs = await OrderController.calculateShippingCost(
         origin,
         destination,
@@ -206,7 +199,6 @@ class OrderController {
 
       const grand_total = total_price + shipping_cost;
 
-      // Buat Order
       const order = await Order.create({
         buyer_id,
         total_price,
@@ -218,7 +210,6 @@ class OrderController {
         shipping_address,
       });
 
-      // Buat OrderItems & kurangi stok
       const orderItemsData = cartItems.map((item) => {
         const commission_amount = Math.floor(
           (item.Product.commission_percentage / 100) *
@@ -229,6 +220,7 @@ class OrderController {
           item.Product.price * item.quantity - commission_amount;
 
         return {
+          order_id: order.id,
           buyer_id,
           product_id: item.Product.id,
           seller_id: item.Product.seller_id,
@@ -248,7 +240,6 @@ class OrderController {
         });
       }
 
-      // Kosongkan cart
       await CartItem.destroy({ where: { cart_id: cart.id } });
 
       res.status(201).json({
@@ -266,7 +257,6 @@ class OrderController {
     }
   }
 
-  // GET /orders
   static async list(req, res, next) {
     try {
       const { id: buyer_id } = req.user;
@@ -289,7 +279,6 @@ class OrderController {
     }
   }
 
-  // GET /orders/:id
   static async detail(req, res, next) {
     try {
       const { id: buyer_id } = req.user;
@@ -317,14 +306,19 @@ class OrderController {
     }
   }
 
-  // PUT /orders/:id/status → khusus seller
   static async updateStatus(req, res, next) {
     try {
       const { id } = req.params;
       const { status } = req.body;
       const { id: seller_id } = req.seller;
 
-      const allowedStatus = ["pending", "processing", "shipped", "completed"];
+      const allowedStatus = [
+        "pending",
+        "processing",
+        "shipped",
+        "completed",
+        "cancelled",
+      ];
       if (!allowedStatus.includes(status)) {
         throw {
           name: "BadRequest",
@@ -348,6 +342,38 @@ class OrderController {
         message: "Order status updated successfully",
         data: { order_id: order.id, status: order.status },
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async sellerOrders(req, res, next) {
+    try {
+      const { id: seller_id } = req.seller; // dari authorizationSeller
+
+      const orderItems = await OrderItem.findAll({
+        where: { seller_id },
+        include: [
+          {
+            model: Order,
+            attributes: [
+              "id",
+              "status",
+              "payment_status",
+              "shipping_address",
+              "grand_total",
+              "createdAt",
+            ],
+          },
+          {
+            model: Product,
+            attributes: ["id", "name", "price"],
+          },
+        ],
+        order: [[Order, "createdAt", "DESC"]],
+      });
+
+      res.status(200).json({ data: orderItems });
     } catch (error) {
       next(error);
     }
