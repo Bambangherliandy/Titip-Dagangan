@@ -1,3 +1,5 @@
+const { Product } = require("../models");
+
 const Groq = require("groq-sdk");
 
 const groq = new Groq({
@@ -11,6 +13,11 @@ class ChatController {
       if (!message)
         throw { name: "BadRequest", message: "Message is required" };
 
+      const produk = await Product.findAll({
+        attributes: ["name", "price", "description", "stock"],
+        limit: 20,
+      });
+
       const completion = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
         messages: [
@@ -18,7 +25,9 @@ class ChatController {
             role: "system",
             content: `Kamu adalah asisten belanja untuk TitipDagangan, sebuah platform e-commerce Indonesia. 
             Tugasmu adalah membantu pembeli dengan:
-            - Rekomendasi produk
+            - Berikut data produk kami: ${JSON.stringify(
+              produk
+            )}. Berikan rekomendasi berdasarkan data ini saja 
             - Pertanyaan seputar cara belanja
             - Informasi pengiriman (JNE, J&T, TIKI)
             - Informasi pembayaran (Midtrans)

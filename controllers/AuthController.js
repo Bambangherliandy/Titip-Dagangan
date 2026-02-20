@@ -82,13 +82,12 @@ class AuthController {
       const payload = ticket.getPayload();
       const { email, name } = payload;
 
-      // cari user, kalau tidak ada buat baru
       let user = await User.findOne({ where: { email } });
       if (!user) {
         user = await User.create({
           name,
           email,
-          password: Math.random().toString(36), // random password
+          password: Math.random().toString(36),
           role: "user",
         });
       }
